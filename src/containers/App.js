@@ -11,6 +11,7 @@ function App() {
     //define state of robots and searchfield
     const [robots, setRobots] = useState([])
     const [searchfield, setSearchfield] = useState('')
+    const [count, setCount] = useState(0)
 
     
     //run every time App() gets called
@@ -18,7 +19,8 @@ function App() {
         fetch('https://jsonplaceholder.typicode.com/users')
             .then(response=> response.json())
             .then(users => setRobots(users))
-    },[])
+        console.log(count)
+    },[count]) // only run if [count] changes, should be [] so useEffect is not fetched every time. Is a shortcut to onMount
 
 
     const onSearchChange = (event) => {
@@ -34,6 +36,7 @@ function App() {
     (
         <div className='tc'>
             <h1 className='f1'>RoboFriends</h1>
+            <button onClick={()=>setCount(count+1)}>Click Me!</button>
             <SearchBox searchChange={onSearchChange}/>
             <Scroll>
                 <ErrorBoundry>
